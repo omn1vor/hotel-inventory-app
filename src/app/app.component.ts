@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { localStorageToken } from './localstorage.token';
 
 @Component({
-  selector: 'app-root',
+  selector: 'hinv-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   title = 'hotel-inventory-app';
+
+  constructor(@Inject(localStorageToken) private localStorage: Storage) {}
 }
