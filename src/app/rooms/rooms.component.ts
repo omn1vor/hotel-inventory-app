@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Room } from './room';
 import { HeaderComponent } from '../header/header.component';
 import { RoomsService } from './services/rooms.service';
-import { Observable, Subject, catchError, of } from 'rxjs';
+import { Observable, Subject, catchError, map, of } from 'rxjs';
 import { HttpEventType } from '@angular/common/http';
 
 @Component({
@@ -29,6 +29,10 @@ export class RoomsComponent implements OnInit, AfterViewInit {
       return of([]);
     })
   );
+
+    roomCount$ = this.roomsService.getRooms$.pipe(
+      map(rooms => rooms.length)
+    );
 
   // Example of loading a lot of data 
   totalBytes = 0;
