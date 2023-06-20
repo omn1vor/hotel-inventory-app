@@ -1,5 +1,5 @@
 export interface Room {
-    number: number;
+    number?: number;
     amenities: string;
     price: number;
     rating: number;

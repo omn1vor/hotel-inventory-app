@@ -1,43 +1,44 @@
 import { Inject, Injectable } from '@angular/core';
-import { Room } from '../room';
 import { APP_SERVICE_CONFIG } from '../../AppConfig/appconfig.service';
 import { AppConfig } from '../../AppConfig/appconfig.interface';
+import { HttpClient, HttpRequest } from '@angular/common/http';
+import { Room } from '../room';
+import { shareReplay } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoomsService {
 
-  constructor(@Inject(APP_SERVICE_CONFIG) private config: AppConfig) { 
+  constructor(@Inject(APP_SERVICE_CONFIG) private config: AppConfig,
+    private http: HttpClient) {
     console.log(config.apiEndpoint);
   }
 
-  getRooms(): Room[] {
-    return [
-      {
-        number: 5,
-        amenities: 'WC, AC, mini-bar',
-        rating: 4.82,
-        price: 40,
-        availableFrom: new Date('2023-04-01'),
-        availableTo: new Date('2023-12-31')
-      },
-      {
-        number: 3,
-        amenities: 'WC',
-        rating: 3.4,
-        price: 15,
-        availableFrom: new Date('2023-01-01'),
-        availableTo: new Date('2023-12-31')
-      },
-      {
-        number: 1,
-        amenities: 'WC, AC',
-        rating: 4.722,
-        price: 25,
-        availableFrom: new Date('2023-02-01'),
-        availableTo: new Date('2023-12-31')
-      }
-    ];
+  getRooms$ = this.http.get<Room[]>('/api/rooms').pipe(
+    shareReplay(1)
+  );
+
+  getRooms() {
+    return this.http.get<Room[]>('/api/rooms');
+  }
+
+  addRoom(room: Room) {
+    return this.http.post<Room>('/api/rooms', room);
+  }
+
+  editRoom(room: Room) {
+    return this.http.put<Room>(`/api/rooms/${room.number}`, room);
+  }
+
+  deleteRoom(room: Room) {
+    return this.http.delete(`/api/rooms/${room.number}`);
+  }
+
+  getPhotos() {
+    const request = new HttpRequest('GET', 'https://jsonplaceholder.typicode.com/photos', {
+      reportProgress: true
+    });
+    return this.http.request(request);
   }
 }

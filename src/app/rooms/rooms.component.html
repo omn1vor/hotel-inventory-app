@@ -11,4 +11,8 @@
 
 <div>
     <button (click)="addRoom()" class="btn btn-primary">Add room</button>
+    <button (click)="editRoom()" class="btn btn-primary">Edit room</button>
+    <button (click)="deleteRoom()" class="btn btn-primary">Delete room</button>
 </div>
+
+<h1 *ngIf="totalBytes > 0">Loading a lot of data... Bytes loaded: {{ totalBytes }}</h1>
