@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Room } from './room';
 import { HeaderComponent } from '../header/header.component';
 import { RoomsService } from './services/rooms.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject, catchError, of } from 'rxjs';
 import { HttpEventType } from '@angular/common/http';
 
 @Component({
@@ -16,6 +16,19 @@ export class RoomsComponent implements OnInit, AfterViewInit {
   hideTitle = false;
   rooms: Room[] = [];
   selectedRoom!: Room;
+
+  // Errors should be handled in service, this is just an example
+  error$: Subject<string> = new Subject;
+
+  getError$ = this.error$.asObservable();
+
+  rooms$ = this.roomsService.getRooms$.pipe(
+    catchError(err => {
+      // console.log(err);
+      this.error$.next(err.message);
+      return of([]);
+    })
+  );
 
   // Example of loading a lot of data 
   totalBytes = 0;
@@ -46,12 +59,12 @@ export class RoomsComponent implements OnInit, AfterViewInit {
     // });
 
     // And now make them use caching
-    this.roomsService.getRooms$.subscribe(rooms => {
-      this.rooms = rooms;
-    });
-    this.roomsService.getRooms$.subscribe(rooms => {
-      this.rooms = rooms;
-    });
+    // this.roomsService.getRooms$.subscribe(rooms => {
+    //   this.rooms = rooms;
+    // });
+    // this.roomsService.getRooms$.subscribe(rooms => {
+    //   this.rooms = rooms;
+    // });
 
     this.stream.subscribe({
       next: data => console.log(data),

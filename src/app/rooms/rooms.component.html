@@ -1,9 +1,10 @@
 <!-- <h1 *ngIf="!hideTitle">Welcome to {{hotelName}}!</h1> -->
 <hinv-header></hinv-header>
 <button (click)="toggleTitle()" class="btn btn-primary" [innerText]="hideTitle ? 'Show title' : 'Hide title'"></button>
-<div *ngIf="rooms.length > 0">
+<h1>{{ getError$ | async }}</h1>
+<div *ngIf="rooms$ | async as roomsStream">
     <hinv-rooms-list 
-        [rooms]="rooms"
+        [rooms]="roomsStream"
         (selectedRoom)="selectRoom($event)"
     ></hinv-rooms-list>
     <h2 *ngIf="selectedRoom">Selected room: {{ selectedRoom.number }}</h2>

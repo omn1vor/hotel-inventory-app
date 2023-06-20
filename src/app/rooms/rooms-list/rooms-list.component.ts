@@ -9,7 +9,7 @@ import { Room } from '../room'
 })
 export class RoomsListComponent {
   @Input() 
-  rooms: Room[] = [];
+  rooms: Room[] | null = [];
 
   @Output() 
   selectedRoom = new EventEmitter<Room>();
