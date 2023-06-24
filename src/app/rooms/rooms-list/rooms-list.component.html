@@ -16,9 +16,10 @@
         <td>{{room.availableFrom | date: 'dd.MM.yyyy'}}</td>
         <td>{{room.availableTo | date: 'dd.MM.yyyy'}}</td>
         <td>
-            <button class="btn btn-primary" (click)="selectRoom(room)">
+            <!-- <button class="btn btn-primary" (click)="selectRoom(room)">
                 Select
-            </button>
+            </button> -->            
+            <button class="btn btn-primary" [routerLink]="['/rooms', room.number]">Book</button>
         </td>
     </tr>
 </table>

@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { RoomsComponent } from './rooms/rooms.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { RoomsBookingComponent } from './rooms/rooms-booking/rooms-booking.component';
 
-const routes: Routes = [
-  { path: '', redirectTo: '/rooms', pathMatch: 'full'},
+const routes: Routes = [  
   { path: 'rooms', component: RoomsComponent },
-  { path: 'employee', component: EmployeeComponent },  
+  { path: 'rooms/:id', component: RoomsBookingComponent },
+  { path: 'employee', component: EmployeeComponent },
+  { path: '', redirectTo: '/rooms', pathMatch: 'full'},
   { path: '**', component: NotfoundComponent }  
 ];
 
