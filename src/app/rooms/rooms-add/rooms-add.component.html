@@ -1,0 +1,39 @@
+{{ roomsForm.pristine | json }}
+{{ roomsForm.dirty | json }}
+{{ roomsForm.valid | json }}
+{{ roomsForm.invalid | json }}
+{{ roomsForm.value | json }}
+
+<div *ngIf="succcessMessage !== ''" class="alert alert-success">
+    {{ succcessMessage }}
+</div>
+
+<form #roomsForm="ngForm" (ngSubmit)="addRoom(roomsForm)">
+    <div class="form-group">
+        <input #roomAmenities="ngModel" required minlength="5" maxlength="50" class="form-control" [(ngModel)]="room.amenities" type="text" name="amenities"
+            placeholder="Amenities">
+    </div>
+    <div *ngIf="roomAmenities.errors?.['minlength']" class="alert alert-danger">
+        Amenities should be min 5 chars!
+    </div>
+    <div *ngIf="roomAmenities.dirty && roomAmenities.errors?.['required']" class="alert alert-danger">
+        Please provide amenities!
+    </div>
+    <div class="form-group">
+        <input required class="form-control" [(ngModel)]="room.price" type="number" name="price" placeholder="Price">
+    </div>
+    <div class="form-group">
+        <input min="1" max="5" required class="form-control" [(ngModel)]="room.rating" type="number" name="rating" placeholder="Rating">
+    </div>
+    <div class="form-group">
+        <input required class="form-control" [(ngModel)]="room.availableFrom" type="datetime" name="availableFrom"
+            placeholder="Available from">
+    </div>
+    <div class="form-group">
+        <input required class="form-control" [(ngModel)]="room.availableTo" type="datetime" name="availableTo"
+            placeholder="Available to">
+    </div>
+    <div>
+        <button [disabled]="roomsForm.invalid" class="btn btn-primary" type="submit">Submit</button>
+    </div>
+</form>

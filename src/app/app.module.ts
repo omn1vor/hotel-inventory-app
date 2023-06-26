@@ -12,7 +12,6 @@ import { EmployeeComponent } from './employee/employee.component';
 import { APP_CONFIG, APP_SERVICE_CONFIG } from './AppConfig/appconfig.service';
 import { RequestInterceptor } from './request.interceptor';
 import { InitService } from './init.service';
-import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppNavComponent } from './app-nav/app-nav.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -22,6 +21,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { RoomsBookingComponent } from './rooms/rooms-booking/rooms-booking.component';
+import { RoomsAddComponent } from './rooms/rooms-add/rooms-add.component';
+import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
 
 function initFactory(initService: InitService) {
   return () => initService.init();
@@ -37,7 +39,9 @@ function initFactory(initService: InitService) {
     EmployeeComponent,
     AppNavComponent,
     NotfoundComponent,
-    RoomsBookingComponent
+    RoomsBookingComponent,
+    RoomsAddComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +52,8 @@ function initFactory(initService: InitService) {
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    FormsModule
   ],
   providers: [
     {
